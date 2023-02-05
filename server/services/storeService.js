@@ -95,7 +95,6 @@ class StoreService {
         }
     }
     async getStore(req, res) {
-        console.log('Gsagf')
         try {
             const storeid = req.params.storeId;
             const pool = new Pool(connectionCredits)

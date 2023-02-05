@@ -3,7 +3,9 @@ body {
     padding: 0;
     background-color: whitesmoke;
 }
-
+.storeCard{
+    width: 34vw !important; 
+}
 .App {
     background-color: white;
 }
@@ -16,7 +18,7 @@ body {
 }
 
 .card {
-    width: 17vw;
+    width: 34vw;
 }
 .formBox {
     display: flex;
