@@ -1,34 +1,41 @@
 body {
     margin: 0;
     padding: 0;
-    background-color: whitesmoke;
 }
-.storeCard{
-    width: 34vw !important; 
+
+.storeCard {
+    width: 34vw !important;
 }
+
 .App {
     background-color: white;
 }
-.navbarblock{
+
+.navbarblock {
     position: fixed;
 }
+
 .productList {
     min-width: 70vw;
     max-width: 70vw;
 }
-.addToCartButton{
+
+.addToCartButton {
     min-width: 15vw;
     min-height: 7vh;
 }
-.itemTitle{
+
+.itemTitle {
     min-width: 63vw;
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
+
 .card {
     width: 34vw;
 }
+
 .formBox {
     display: flex;
     width: 70vw;
@@ -59,10 +66,17 @@ body {
 .card-title {
     min-height: 48px;
 }
-.addButton{
+
+.addButton {
     min-width: 23vw;
+    background-color: white !important;
     border-color: #D2D2D2 !important;
 }
+
+.addButton:hover {
+    background-color: whitesmoke !important;
+}
+
 p {
     margin: 0 !important;
 }
@@ -80,9 +94,16 @@ button {
     min-width: 10vw;
 }
 
+.myAccount {
+    margin-left: 20vw !important;
+}
+.addForm{
+    margin-left: -20vw;
+}
 .navbar {
     display: flex !important;
     width: 20vw;
+    margin-right: 2vw;
     align-items: flex-start !important;
 }
 

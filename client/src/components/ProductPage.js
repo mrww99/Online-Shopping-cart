@@ -30,6 +30,9 @@ function ProductPage(props) {
                 </div>
                 <button className='btn btn-primary addToCartButton'>Add to cart</button>
             </div>
+            <div>
+                
+            </div>
         </div>
     );
 }

@@ -37,7 +37,7 @@ function Navbar(props) {
                         </Link>
                     </li>
                 </ul>
-                <div className='px-3 py-4 fixed-bottom welcomeLable'><p className='fs-4'>Welcome, {userName}</p></div>
+                <div className='px-3 py-4 welcomeLable'><p className='fs-4'>Welcome, {userName}</p></div>
             </div>
         </div>
     );

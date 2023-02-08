@@ -103,9 +103,9 @@ function AddCard(props) {
         return true;
     };
     return (
-        <>
+        <div className='addForm'>
             <div className='d-flex flex-row justify-content-between accountInfoButton'>
-                <span className="fs-3">Add card</span>
+                <span className="fs-2">Add card</span>
             </div>
             <div className='formBox'>
                 {errorLable !== '' && (
@@ -176,7 +176,7 @@ function AddCard(props) {
                     </div>
                 </form>
             </div>
-        </>
+        </div>
     );
 }
 

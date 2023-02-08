@@ -65,9 +65,9 @@ function AddAddress(props) {
     };
 
     return (
-        <>
+        <div className='addForm'>
             <div className='d-flex flex-row justify-content-between accountInfoButton'>
-                <span className="fs-3">Add address</span>
+                <span className="fs-2">Add address</span>
             </div>
             <div className='formBox'>
                 {errorLable !== '' && (
@@ -104,7 +104,7 @@ function AddAddress(props) {
                     </div>
                 </form>
             </div>
-        </>
+        </div>
     );
 }
 

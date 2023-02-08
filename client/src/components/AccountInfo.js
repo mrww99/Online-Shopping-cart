@@ -53,7 +53,7 @@ function AccountInfo(props) {
             .catch(error => '');
     }, [cookie]);
     return (
-        <div>
+        <>
             <span className='fs-2'>My Account</span>
             <div className='d-flex flex-column myAccountBlock'>
                 <div className='mt-4'>
@@ -135,7 +135,7 @@ function AccountInfo(props) {
                     </div>
                 </div>
             </div>
-        </div>
+        </>
     );
 }
 
