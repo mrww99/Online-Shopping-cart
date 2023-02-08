@@ -16,7 +16,16 @@ body {
     min-width: 70vw;
     max-width: 70vw;
 }
-
+.addToCartButton{
+    min-width: 15vw;
+    min-height: 7vh;
+}
+.itemTitle{
+    min-width: 63vw;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
 .card {
     width: 34vw;
 }
@@ -50,7 +59,10 @@ body {
 .card-title {
     min-height: 48px;
 }
-
+.addButton{
+    min-width: 23vw;
+    border-color: #D2D2D2 !important;
+}
 p {
     margin: 0 !important;
 }
@@ -60,7 +72,7 @@ p {
 }
 
 .accountInfoButton {
-    width: 35vw;
+    width: 45vw;
     margin-bottom: 3vh;
 }
 

@@ -6,17 +6,17 @@ const storeService = require('../services/storeService');
 
 const router = new Router();
 //user service routers
-router.post('/login',userService.login)
-router.post('/register', userService.registration)
-router.get('/getUser/:userId',userService.getUser)
-router.post('/addNewAddress/:userId', userService.addNewAddress)
-router.get('/addressList/:userId', userService.getAddressList)
-router.post('/deleteAddress/:addrId', userService.deleteAddress)
-router.post('/addNewCard/:userId', userService.addNewCard)
-router.get('/cardList/:userId', userService.getCardList)
-router.post('/deleteCard/:cardId', userService.deleteCard)
+router.post('/login',userService.login)                                 //ok
+router.post('/register', userService.registration)                      //ok
+router.get('/getUser/:userId',userService.getUser)                      //ok
+router.post('/addNewAddress/:userId', userService.addNewAddress)        //ok
+router.get('/addressList/:userId', userService.getAddressList)          //ok
+router.post('/deleteAddress/:addrId', userService.deleteAddress)        //ok
+router.post('/addNewCard/:userId', userService.addNewCard)              //ok
+router.get('/cardList/:userId', userService.getCardList)                //ok
+router.post('/deleteCard/:cardId', userService.deleteCard)              //ok
 //product service routers
-router.get('/products/:storeId',productService.fetchProducts)
+router.get('/products/:storeId',productService.fetchProducts)           //ok
 router.get('/findProduct/:productId', productService.findProduct)
 router.post('/addProduct/:storeId', productService.addProduct)
 router.post('/deleteProduct/:productId', productService.deleteProduct)
@@ -24,7 +24,7 @@ router.get('/comments/:productid', productService.getComments)
 router.post('/addComment', productService.addComment)
 router.post('/addToCart', productService.addToCart)
 //store service routers
-router.get('/storeList/:userId', storeService.getStoreList)
+router.get('/storeList/:userId', storeService.getStoreList)             //ok
 router.get('/getStore/:storeId', storeService.getStore)
 router.post('/deleteStore/:storeId', storeService.deleteStore)
 router.post('/createStore/:userId', storeService.createStore)

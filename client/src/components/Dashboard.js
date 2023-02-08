@@ -9,6 +9,7 @@ import StoreList from './StoreList';
 import MyAccount from './MyAccount';
 import MyStore from './MyStore';
 import Checkout from './Checkout';
+import ProductPage from './ProductPage';
 
 function Dashboard(props) {
     const userId = props.userId
@@ -39,6 +40,7 @@ function Dashboard(props) {
                         <Route path='/myStore' element={<MyStore />} />
                         <Route path='/myAccount' element={<MyAccount />} />
                         <Route path='/checkout' element={<Checkout />} />
+                        <Route path='/productPage/:id' element={<ProductPage/>}/>
                     </Routes>
                 </div>
             </div>

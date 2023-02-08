@@ -1,9 +1,9 @@
-import React,{useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import Cookies from 'js-cookie'
 import axios from 'axios';
 
 function AccountInfo(props) {
-    const { popUpToggler, setPopUpToggler} = props;
+    const { popUpToggler, setPopUpToggler } = props;
     const [addresses, setAddresses] = useState([])
     const [cards, setCards] = useState([])
     const [orders, setOrders] = useState([])
@@ -59,9 +59,9 @@ function AccountInfo(props) {
                 <div className='mt-4'>
                     <div className='d-flex flex-row justify-content-between accountInfoButton'>
                         <span className='fs-3'>My Addresses</span>
-                        <button className='btn btn-primary' onClick={() => togglerState(1)}>Add Address</button>
                     </div>
                     <div className='infoRow'>
+                        <button className='btn btn-light fs-4 my-1 addButton text-secondary' onClick={() => togglerState(1)}>Add New Address</button>
                         {addresses.length !== 0 ? (
                             addresses.map((address, index) => (
                                 <div key={index} className="card infoCard m-1">
@@ -72,7 +72,7 @@ function AccountInfo(props) {
                                             <p className='card-text fs-7 text-secondary'>Postal Code: {address.postalcode}</p>
                                             <p className='card-text fs-7 text-secondary'>Province: {address.province}</p>
                                             <p className='card-text fs-7 text-secondary'>City: {address.city}</p>
-                                            <button className="btn btn-danger mt-3" onClick={() => handleAddressDelete(index)}>Delete</button>
+                                            <button className="btn btn-outline-danger mt-3" onClick={() => handleAddressDelete(index)}>Delete</button>
                                         </div>
                                     </div>
                                 </div>
@@ -84,11 +84,11 @@ function AccountInfo(props) {
                     </div>
                 </div>
                 <div className='mt-4'>
-                    <div className='d-flex flex-row justify-content-between accountInfoButton'>
+                    <div className='d-flex flex-row justify-content-between  accountInfoButton'>
                         <span className='fs-3'>My Cards</span>
-                        <button className='btn btn-primary' onClick={() => togglerState(2)}>Add card</button>
                     </div>
                     <div className='infoRow'>
+                        <button className='btn btn-light fs-4 my-1 addButton text-secondary' onClick={() => togglerState(2)}>Add New Card</button>
                         {cards.length !== 0 ? (
                             cards.map((card, index) => (
                                 <div key={index} className="card infoCard m-1">
@@ -99,7 +99,7 @@ function AccountInfo(props) {
                                             <p className='card-text fs-7 text-secondary'>Expire date: {card.expiredate}</p>
                                             <p className='card-text fs-7 text-secondary'>Card Issuer: {card.cardissuer}</p>
                                             <p className='card-text fs-7 text-secondary'>Bank Code: {card.bankid}</p>
-                                            <button className="btn btn-danger mt-3" onClick={() => handleCardDelete(index)}>Delete</button>
+                                            <button className="btn btn-outline-danger mt-3" onClick={() => handleCardDelete(index)}>Delete</button>
                                         </div>
                                     </div>
                                 </div>

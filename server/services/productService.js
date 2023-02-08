@@ -154,55 +154,75 @@ class ProductService {
         }
     }
     async findProduct(req, res) {
-        try {
-            const productId = req.params.productId;
-            const pool = new Pool(connectionCredits)
-            pool.query('SELECT * FROM "product" WHERE productid = $1', [productId], (error, result) => {
-                if (error) {
-                    res.status(500).send(error)
+    try {
+        const productId = req.params.productId;
+        const pool = new Pool(connectionCredits)
+        pool.query('SELECT product.*, store.name AS store_name FROM "product" JOIN store ON product.store_storeid = store.storeid WHERE productid = $1', [productId], (error, result) => {
+            if (error) {
+                res.status(500).send(error)
+            } else {
+                if (result.rowCount === 0) {
+                    res.status(404).send({ error: 'Product not found' })
                 } else {
-                    if (res.rowCount === 0) {
-                        res.status(404).send({ error: 'User not found' })
-                    } else {
-                        res.status(200).json(result.rows[0])
-                    }
+                    res.status(200).json(result.rows[0])
                 }
-            })
-        } catch (error) {
-            console.log(error)
-        }
+            }
+        })
+    } catch (error) {
+        console.log(error)
     }
+}
+    // async findProduct(req, res) {
+    //     try {
+    //         const productId = req.params.productId;
+    //         const pool = new Pool(connectionCredits)
+    //         pool.query('SELECT * FROM "product" WHERE productid = $1', [productId], (error, result) => {
+    //             if (error) {
+    //                 res.status(500).send(error)
+    //             } else {
+    //                 if (res.rowCount === 0) {
+    //                     res.status(404).send({ error: 'User not found' })
+    //                 } else {
+    //                     res.status(200).json(result.rows[0])
+    //                 }
+    //             }
+    //         })
+    //     } catch (error) {
+    //         console.log(error)
+    //     }
+    // }
+    
     async deleteProduct(req, res) {
-        try {
-            const productId = req.params.productId;
-            const client = new Client(connectionCredits);
-            client.connect();
+    try {
+        const productId = req.params.productId;
+        const client = new Client(connectionCredits);
+        client.connect();
 
-            // Check if there are any comments related to this product
-            const checkCommentsQuery = `SELECT * FROM "comment" WHERE product_productid = $1`;
-            const comments = await client.query(checkCommentsQuery, [productId]);
+        // Check if there are any comments related to this product
+        const checkCommentsQuery = `SELECT * FROM "comment" WHERE product_productid = $1`;
+        const comments = await client.query(checkCommentsQuery, [productId]);
 
-            // If there are comments, delete them first
-            if (comments.rowCount > 0) {
-                const deleteCommentsQuery = `DELETE FROM "comment" WHERE product_productid = $1`;
-                await client.query(deleteCommentsQuery, [productId]);
-                console.log(`Comments related to product №${productId} have been deleted`);
-            }
-
-            const deleteProductQuery = 'DELETE FROM "product" WHERE productid = $1';
-            try {
-                await client.query(deleteProductQuery, [productId]);
-            } catch (error) {
-                res.status(500).send({ error: `Product can't be deleted. It's already been ordered` })
-            }
-            
-            console.log(`Product №${productId} has been deleted`);
-            client.end();
-            res.send({ status: 'success', message: 'Product deleted succcessfuly' });
-        } catch (e) {
-            console.log(e);
+        // If there are comments, delete them first
+        if (comments.rowCount > 0) {
+            const deleteCommentsQuery = `DELETE FROM "comment" WHERE product_productid = $1`;
+            await client.query(deleteCommentsQuery, [productId]);
+            console.log(`Comments related to product №${productId} have been deleted`);
         }
+
+        const deleteProductQuery = 'DELETE FROM "product" WHERE productid = $1';
+        try {
+            await client.query(deleteProductQuery, [productId]);
+        } catch (error) {
+            res.status(500).send({ error: `Product can't be deleted. It's already been ordered` })
+        }
+
+        console.log(`Product №${productId} has been deleted`);
+        client.end();
+        res.send({ status: 'success', message: 'Product deleted succcessfuly' });
+    } catch (e) {
+        console.log(e);
     }
+}
 
 
 }
