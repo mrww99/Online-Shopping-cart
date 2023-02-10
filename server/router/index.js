@@ -17,11 +17,11 @@ router.get('/cardList/:userId', userService.getCardList)                //ok
 router.post('/deleteCard/:cardId', userService.deleteCard)              //ok
 //product service routers
 router.get('/products/:storeId',productService.fetchProducts)           //ok
-router.get('/findProduct/:productId', productService.findProduct)
-router.post('/addProduct/:storeId', productService.addProduct)
-router.post('/deleteProduct/:productId', productService.deleteProduct)
-router.get('/comments/:productid', productService.getComments)
-router.post('/addComment', productService.addComment)
+router.get('/findProduct/:productId', productService.findProduct)       //ok
+router.post('/addProduct/:storeId', productService.addProduct)          
+router.post('/deleteProduct/:productId', productService.deleteProduct)  
+router.get('/comments/:productid', productService.getComments)          //ok
+router.post('/addComment', productService.addComment)                   
 router.post('/addToCart', productService.addToCart)
 //store service routers
 router.get('/storeList/:userId', storeService.getStoreList)             //ok

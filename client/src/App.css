@@ -97,6 +97,9 @@ button {
 .myAccount {
     margin-left: 20vw !important;
 }
+.white{
+    background-color: white !important;
+}
 .addForm{
     margin-left: -20vw;
 }

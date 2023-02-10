@@ -138,21 +138,22 @@ class ProductService {
         try {
             const productid = req.params.productid;
             const pool = new Pool(connectionCredits)
-            pool.query('SELECT * FROM Comment WHERE product_productid = $1', [productid], (error, result) => {
+            pool.query('SELECT c.commenttext, c.commentdate, u."name" AS user_name FROM public."comment" c JOIN public."User" u ON c.user_userid = u.userid WHERE c.product_productid = $1;', [productid], (error, result) => {
                 if (error) {
-                    res.status(500).send({ status: 'error', message: `No comment's for this product` })
+                console.log(error)
+                res.status(500).send({ status: 'error', message: `No comment's for this product` })
+            } else {
+                if (res.rowCount === 0) {
+                    res.status(404).send({ error: 'User not found' })
                 } else {
-                    if (res.rowCount === 0) {
-                        res.status(404).send({ error: 'User not found' })
-                    } else {
-                        res.status(200).json(result.rows)
-                    }
+                    res.status(200).json(result.rows)
                 }
-            })
-        } catch (error) {
-            console.log(error)
-        }
+            }
+        })
+    } catch(error) {
+        console.log(error)
     }
+}
     async findProduct(req, res) {
     try {
         const productId = req.params.productId;
@@ -191,7 +192,7 @@ class ProductService {
     //         console.log(error)
     //     }
     // }
-    
+
     async deleteProduct(req, res) {
     try {
         const productId = req.params.productId;
