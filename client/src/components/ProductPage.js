@@ -1,10 +1,13 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
+import Cookies from 'js-cookie'
 import { Link, useParams } from 'react-router-dom';
 function ProductPage(props) {
     const { id } = useParams();
     const [product, setProduct] = useState({})
     const [comments, setCommets] = useState([])
+    const [comment, setCommet] = useState([])
+    const cookie = Cookies.get('userId')
     useEffect(() => {
         axios.get(`http://localhost:5000/api/findProduct/${id}`)
             .then(res => {
@@ -18,7 +21,21 @@ function ProductPage(props) {
                 setCommets(res.data);
             }).catch(error => console.log(error))
     }, [id])
-    console.log(comments)
+    const handleChange = (e) => {
+        setCommet(e.target.value)
+    }
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            const requestBody = { comment, id, cookie }
+            await axios.post('http://localhost:5000/api/addComment', { requestBody });
+            setCommet('')
+            const newCommentsList = await axios.get(`http://localhost:5000/api/comments/${id}`)
+            setCommets(newCommentsList.data)
+        } catch (error) {
+            console.log(error)
+        }
+    }
     return (
         <div className='my-5 mx-4'>
             <div className='itemTitle'>
@@ -30,7 +47,7 @@ function ProductPage(props) {
                     <span className='text-success'> {product.store_name}</span>
                 </Link>
             </p>
-            <div className='my-5 itemTitle'>
+            <div className='mt-5 itemTitle'>
                 <div>
                     <p className='fs-5'>Type: {product.type}</p>
                     <p className='fs-5'>Color: {product.color}</p>
@@ -38,40 +55,34 @@ function ProductPage(props) {
                 <button className='btn btn-primary addToCartButton'>Add to cart</button>
             </div>
             <div>
-                <span className='fs-4'>Comments</span>
-                <div className="container my-5 py-5">
+                <div className="container mt-4 py-5">
                     <div className="row d-flex justify-content-center">
                         <div className="card">
-                            <div className="card-footer py-3 border-0 white">
+                            <form onSubmit={handleSubmit} className="card-footer py-3 border-0 white">
                                 <div className="d-flex flex-start w-100">
                                     <div className="form-outline w-100">
-                                        <textarea className="form-control" id="textAreaExample" rows="2"></textarea>
+                                        <textarea value={comment} onChange={handleChange} className="form-control" id="textAreaExample" rows="2"></textarea>
                                     </div>
                                 </div>
                                 <div className="mt-2 pt-1">
-                                    <button type="button" className="btn btn-primary btn-sm">Post comment</button>
+                                    <button type="submit" className="btn btn-primary btn-sm">Post comment</button>
                                 </div>
-                            </div>
-
-                            {comments.length > 0 ? comments.map((comment, index) => (
-                                <>
-                                    <div key={index} className="card-body">
-                                        <div className="d-flex flex-start align-items-center">
-                                            <div>
-                                                <h6 className="fw-bold text-primary mb-1">{comment.user_name}</h6>
-                                                <p className="text-muted small mb-0">
-                                                    Shared publicly - {comment.commentdate}
-                                                </p>
-                                            </div>
+                            </form>
+                            {comments.length > 0 ? comments.map((review, index) => (
+                                <div key={index} className="card-body">
+                                    <div className="d-flex flex-start align-items-center">
+                                        <div>
+                                            <h6 className="text-dark fs-5">{review.user_name}</h6>
+                                            <p className="text-muted small mb-0">
+                                                Posted {review.commentdate}
+                                            </p>
                                         </div>
-                                        <p className="mt-3 mb-4 pb-2 fs-5">
-                                            {comment.commenttext}
-                                        </p>
-                                        {index !== comments.length - 1 && <hr class="hr" />}
                                     </div>
-                                </>
-
-                            )) : <p className='mx-4 my-4 fs-5'>No user reviews yet ...</p>}
+                                    <p className="mt-2 mb-2 pb-2 fs-5">
+                                        {review.commenttext}
+                                    </p>
+                                </div>
+                            )) : <p className='mx-4 mb-5 fs-4'>No user reviews yet ...</p>}
                         </div>
                     </div>
                 </div>
