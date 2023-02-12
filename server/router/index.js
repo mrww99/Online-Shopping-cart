@@ -33,13 +33,13 @@ router.get('/getOrder/:userId',storeService.getOrder)                   //not re
 router.get('/payment/:paymentInfo', storeService.addPaymentInfo)        //not relevant
 router.get('/deleteOrder/:orderId', storeService.deleteOrder)           //not relevant
 //TODO
-//fetch payed orders to myAccount                                                                   (1)
-//fetch user's unpayed order(can have only one)                                                     (2)
-//view unpayed order items in checkout                                                              (3)
-//add item //if false unpayed order on addToCart create new unpayed order, add item to orderitem    (4)   
-//add item //if true unpayed order on addToCart add item to orderitem to that orderid               (5)
-//delete item                                                                                       (6)
-//check out(order payed)                                                                            (7)
+//fetch payed orders to myAccount                                                        (1)
+//fetch unpayed order(can have only one)                                                 (2)
+//view unpayed order items in checkout                                                   (3)
+//if false unpayed order on addToCart create new unpayed order, add item to orderitem    (4)   
+//if true unpayed order on addToCart add item to orderitem to that orderid               (5)
+//delete item                                                                            (6)
+//check out(order payed)                                                                 (7)
 
 
 module.exports = router
