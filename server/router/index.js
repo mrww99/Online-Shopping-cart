@@ -21,11 +21,11 @@ router.get('/findProduct/:productId', productService.findProduct)       //ok
 router.post('/addProduct/:storeId', productService.addProduct)          
 router.post('/deleteProduct/:productId', productService.deleteProduct)  
 router.get('/comments/:productid', productService.getComments)          //ok
-router.post('/addComment', productService.addComment)                   
-router.post('/addToCart', productService.addToCart)
+router.post('/addComment', productService.addComment)                   //ok
+router.post('/addToCart', productService.addToCart)                     //ok
 //store service routers
 router.get('/storeList/:userId', storeService.getStoreList)             //ok
-router.get('/getStore/:storeId', storeService.getStore)
+router.get('/getStore/:storeId', storeService.getStore)                 //ok
 router.post('/deleteStore/:storeId', storeService.deleteStore)
 router.post('/createStore/:userId', storeService.createStore)
 //order service

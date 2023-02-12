@@ -109,7 +109,9 @@ button {
     margin-right: 2vw;
     align-items: flex-start !important;
 }
-
+.storeDescription{
+    max-width: 50vw !important;
+}
 .infoRow {
     width: 80vw;
     min-height: 25vh;

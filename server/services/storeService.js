@@ -98,14 +98,17 @@ class StoreService {
         try {
             const storeid = req.params.storeId;
             const pool = new Pool(connectionCredits)
-            pool.query('SELECT * FROM "store" WHERE storeid = $1', [storeid], (error, result) => {
+            // pool.query('SELECT *, (SELECT name FROM "User" WHERE "User".userid = "store".user_userid) AS username FROM "store"WHERE storeid = $1', [storeid], (error, restult) => {
+                pool.query('SELECT *,(SELECT name AS admin_name FROM "User" WHERE "User".userid = store.user_userid) FROM "store" WHERE storeid = $1', [storeid], (error, result) => {
                 if (error) {
                     res.status(500).send(error)
+                    console.log(error)
                 } else {
                     if (res.rowCount === 0) {
                         res.status(404).send({ error: 'Store not found' })
+                        console.log(result.rows)
                     } else {
-                        console.log(result)
+                        console.log(result.rows)
                         res.status(200).json(result.rows[0])
                     }
                 }
@@ -128,7 +131,7 @@ class StoreService {
                 const productId = products.rows[0].productid
                 const checkCommentsQuery = `SELECT * FROM "comment" WHERE product_productid = $1`;
                 const comments = await client.query(checkCommentsQuery, [productId]);
-                console.log('HERE ' +storeid)
+                console.log('HERE ' + storeid)
                 if (comments.rowCount > 0) {
                     const deleteCommentsQuery = `DELETE FROM "comment" WHERE product_productid = $1`;
                     await client.query(deleteCommentsQuery, [productId]);

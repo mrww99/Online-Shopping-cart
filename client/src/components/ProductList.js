@@ -4,10 +4,10 @@ import { Link } from 'react-router-dom';
 
 function ProductList(props) {
     const [products, setProducts] = useState([])
+    const [productsStatus, setProductsStatus] = useState('')
     let getProductsLink = ''
-    if (props[0]) {
-        console.log('yes')
-        const storeId = props;
+    if ('storeid' in props) {
+        const storeId = props.storeid;
         getProductsLink = `http://localhost:5000/api/products/${storeId}`
     } else {
         getProductsLink = `http://localhost:5000/api/products/no`
@@ -17,29 +17,36 @@ function ProductList(props) {
             .then(res => {
                 setProducts(res.data);
             })
-            .catch(error => console.log(error));
+            .catch(error => (setProductsStatus(error.response.data.error)));
     }, []);
     return (
         <>
             <span className='fs-2'>Products List</span>
             <div className='d-flex flex-row flex-wrap productList my-3'>
-                {products.map((product, index) => (
-                    <div key={index} className="card m-1">
-                        <Link className='text-decoration-none text-dark' to={`http://localhost:3000/productPage/${product.productid}`}>
-                            <div className="card-body cardBody">
-                                <div className='d-flex flex-column'>
-                                    <h5 className="card-title">{product.name}</h5>
-                                    <p className='card-text fs-7 text-secondary'>Product type: {product.type}</p>
-                                    <p className='card-text fs-7 text-secondary'>Color: {product.color}</p>
+                {products.length !== 0 ? (
+                    products.map((product, index) => (
+                        <div key={index} className="card m-1">
+                            <Link className='text-decoration-none text-dark' to={`http://localhost:3000/productPage/${product.productid}`}>
+                                <div className="card-body cardBody">
+                                    <div className='d-flex flex-column'>
+                                        <h5 className="card-title">{product.name}</h5>
+                                        <p className='card-text fs-7 text-secondary'>Product type: {product.type}</p>
+                                        <p className='card-text fs-7 text-secondary'>Color: {product.color}</p>
+                                    </div>
+                                    <div className='d-flex justify-content-between buttonBlock mt-3'>
+                                        <button className="btn btn-primary">Add to Cart</button>
+                                        <p className='card-text fs-4'>{product.price}zł</p>
+                                    </div>
                                 </div>
-                                <div className='d-flex justify-content-between buttonBlock mt-3'>
-                                    <button className="btn btn-primary">Add to Cart</button>
-                                    <p className='card-text fs-4'>{product.price}zł</p>
-                                </div>
-                            </div>
-                        </Link>
-                    </div>
-                ))}
+                            </Link>
+                        </div>
+                    ))
+                ) : (
+                    <p className='fs-6 text-muted'>{productsStatus}...</p>
+                )
+
+                }
+
             </div>
         </>
     );

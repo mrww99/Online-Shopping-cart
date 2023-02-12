@@ -10,7 +10,7 @@ import MyAccount from './MyAccount';
 import MyStore from './MyStore';
 import Checkout from './Checkout';
 import ProductPage from './ProductPage';
-
+import StorePage from './StorePage';
 function Dashboard(props) {
     const userId = props.userId
     const [user, setUser] = useState()
@@ -41,6 +41,7 @@ function Dashboard(props) {
                         <Route path='/myAccount' element={<MyAccount />} />
                         <Route path='/checkout' element={<Checkout />} />
                         <Route path='/productPage/:id' element={<ProductPage/>}/>
+                        <Route path='/storePage/:id' element={<StorePage/>}/>
                     </Routes>
                 </div>
             </div>
