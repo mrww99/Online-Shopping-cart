@@ -4,7 +4,7 @@ body {
 }
 
 .storeCard {
-    width: 34vw !important;
+    width: 65vw !important;
 }
 
 .App {
@@ -21,8 +21,8 @@ body {
 }
 
 .addToCartButton {
-    min-width: 15vw;
-    min-height: 7vh;
+    border-top-right-radius: 0 !important;
+    border-top-left-radius: 0 !important;
 }
 
 .itemTitle {
@@ -33,7 +33,7 @@ body {
 }
 
 .card {
-    width: 34vw;
+    width: 22vw;
 }
 
 .formBox {
@@ -61,10 +61,6 @@ body {
 
 .buttonBlock {
     margin-bottom: auto;
-}
-
-.card-title {
-    min-height: 48px;
 }
 
 .addButton {
@@ -97,21 +93,26 @@ button {
 .myAccount {
     margin-left: 20vw !important;
 }
-.white{
+
+.white {
     background-color: white !important;
 }
-.addForm{
+
+.addForm {
     margin-left: -20vw;
 }
+
 .navbar {
     display: flex !important;
     width: 20vw;
     margin-right: 2vw;
     align-items: flex-start !important;
 }
-.storeDescription{
+
+.storeDescription {
     max-width: 50vw !important;
 }
+
 .infoRow {
     width: 80vw;
     min-height: 25vh;

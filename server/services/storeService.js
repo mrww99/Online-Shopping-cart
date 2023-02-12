@@ -7,7 +7,6 @@ const connectionCredits = {
     password: '1111',
     port: 5432
 }
-// test
 class StoreService {
     async getStoreList(req, res) {
         const userId = req.params.userId
@@ -183,5 +182,4 @@ class StoreService {
         }
     }
 }
-
 module.exports = new StoreService();

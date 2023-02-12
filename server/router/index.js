@@ -3,7 +3,7 @@ const Router = require('express').Router;
 const userService = require('../services/userService');
 const productService = require('../services/productService');
 const storeService = require('../services/storeService');
-
+const orderService = require('../services/orderService')
 const router = new Router();
 //user service routers
 router.post('/login',userService.login)                                 //ok
@@ -29,8 +29,17 @@ router.get('/getStore/:storeId', storeService.getStore)                 //ok
 router.post('/deleteStore/:storeId', storeService.deleteStore)
 router.post('/createStore/:userId', storeService.createStore)
 //order service
-router.get('/getOrder/:userId',storeService.getOrder)
-router.get('/payment/:paymentInfo', storeService.addPaymentInfo)
-router.get('/deleteOrder/:orderId', storeService.deleteOrder)
+router.get('/getOrder/:userId',storeService.getOrder)                   //not relevant
+router.get('/payment/:paymentInfo', storeService.addPaymentInfo)        //not relevant
+router.get('/deleteOrder/:orderId', storeService.deleteOrder)           //not relevant
+//TODO
+//fetch payed orders to myAccount                                                                   (1)
+//fetch user's unpayed order(can have only one)                                                     (2)
+//view unpayed order items in checkout                                                              (3)
+//add item //if false unpayed order on addToCart create new unpayed order, add item to orderitem    (4)   
+//add item //if true unpayed order on addToCart add item to orderitem to that orderid               (5)
+//delete item                                                                                       (6)
+//check out(order payed)                                                                            (7)
+
 
 module.exports = router

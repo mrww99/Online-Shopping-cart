@@ -18,7 +18,7 @@ function StorePage(props) {
     return (
         <div>
             <span className='fs-2'>
-                {store.name} <span className='fs-3'>page</span>
+                {store.name} <span className='fs-3'></span>
                 <p className='fs-6 text-muted'>Powered by <span className='text-success'>{store.admin_name}</span></p>
             </span>
             <div className='storeDescription my-4'>

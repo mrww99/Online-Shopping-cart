@@ -31,9 +31,9 @@ function Navbar(props) {
                             My Account
                         </Link>
                     </li>
-                    <li>
+                    <li className='mt-3'>
                         <Link className={`nav-link link ${location.pathname === '/checkout' ? 'active' : ''}`} to='/checkout'>
-                            Checkout
+                            Go to Checkout
                         </Link>
                     </li>
                 </ul>

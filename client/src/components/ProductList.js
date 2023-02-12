@@ -12,6 +12,9 @@ function ProductList(props) {
     } else {
         getProductsLink = `http://localhost:5000/api/products/no`
     }
+    const handleAddToCart = (id)=>{
+        console.log(id)
+    }
     useEffect(() => {
         axios.get(getProductsLink)
             .then(res => {
@@ -25,20 +28,19 @@ function ProductList(props) {
             <div className='d-flex flex-row flex-wrap productList my-3'>
                 {products.length !== 0 ? (
                     products.map((product, index) => (
-                        <div key={index} className="card m-1">
+                        <div key={index} className="card m-1 d-flex justify-content-between">
                             <Link className='text-decoration-none text-dark' to={`http://localhost:3000/productPage/${product.productid}`}>
                                 <div className="card-body cardBody">
                                     <div className='d-flex flex-column'>
-                                        <h5 className="card-title">{product.name}</h5>
+                                        <h5 className="card-title fs-4">{product.name}</h5>
                                         <p className='card-text fs-7 text-secondary'>Product type: {product.type}</p>
                                         <p className='card-text fs-7 text-secondary'>Color: {product.color}</p>
                                     </div>
-                                    <div className='d-flex justify-content-between buttonBlock mt-3'>
-                                        <button className="btn btn-primary">Add to Cart</button>
-                                        <p className='card-text fs-4'>{product.price}zł</p>
-                                    </div>
+                                    <p className='card-text my-2 fs-4'>{product.price}zł</p>
+
                                 </div>
                             </Link>
+                            <button onClick = {()=> handleAddToCart(product.productid)}className="btn btn-primary addToCartButton">Add to Cart</button>
                         </div>
                     ))
                 ) : (
