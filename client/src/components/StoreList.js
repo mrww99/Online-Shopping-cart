@@ -8,7 +8,6 @@ function StoreList(props) {
     const cookie = Cookies.get('userId')
     let getStoresLink = ''
     if (props[0]) {
-        const storeId = props;
         getStoresLink = `http://localhost:5000/api/storeList/${cookie}`
     } else {
         getStoresLink = `http://localhost:5000/api/storeList/no`

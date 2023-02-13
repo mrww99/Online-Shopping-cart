@@ -14,7 +14,6 @@ function StorePage(props) {
             })
             .catch(error => (setStatus(error.response.data.error)));
     }, []);
-    console.log(store)
     return (
         <div>
             <span className='fs-2'>

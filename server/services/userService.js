@@ -25,6 +25,7 @@ class UserService {
             const registerQuery = `INSERT INTO "User" (userid, name, phonenumber, password) VALUES ($1, $2, $3, $4)`;
             await client.query(registerQuery, [newId, name, phoneNumber, password])
             console.log(`User №${newId} ${name} just signed up`)
+            client.end()
             if (newId !== "undefined") {
                 res.cookie('userId', newId, { httpOnly: false, maxAge: 1000 * 60 * 60 * 24 * 7, sameSite: 'strict', secure: false })
             }
@@ -76,6 +77,7 @@ class UserService {
                     }
                 }
             })
+            pool.end()
 
         } catch (error) {
             console.log(error)
@@ -96,7 +98,7 @@ class UserService {
                     }
                 }
             })
-
+            pool.end()
         } catch (error) {
             console.log(error)
         }
@@ -137,12 +139,10 @@ class UserService {
         try {
             await client.query(deleteQuery)
             res.send({ status: 'success', message: 'Card deleted successfuly' })
-            client.end();
         } catch (error) {
             res.send({ status: 'error', message: error })
         }
-
-
+        client.end();
     }
     async deleteCard(req, res) {
         const client = new Client(connectionCredits);
@@ -158,10 +158,9 @@ class UserService {
         } catch (error) {
             res.send({ status: 'error', message: error })
         }
-
+        client.end();
     }
     async addNewCard(req, res) {
-        
         console.log('HERE IT IS')
         try {
             const client = new Client(connectionCredits);
@@ -210,6 +209,7 @@ class UserService {
                     }
                 }
             })
+            pool.end()
         } catch (error) {
             console.log(error)
         }

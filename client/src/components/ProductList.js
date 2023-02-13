@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import Cookies from 'js-cookie'
 
 function ProductList(props) {
     const [products, setProducts] = useState([])
     const [productsStatus, setProductsStatus] = useState('')
+    const cookie = Cookies.get('userId')
+
     let getProductsLink = ''
     if ('storeid' in props) {
         const storeId = props.storeid;
@@ -12,8 +15,12 @@ function ProductList(props) {
     } else {
         getProductsLink = `http://localhost:5000/api/products/no`
     }
-    const handleAddToCart = (id)=>{
-        console.log(id)
+    const handleAddToCart = (id) => {
+        axios.get(`http://localhost:5000/api/getOrders/${cookie}`)
+        .then(res=>{
+            console.log(res.data[0])
+        })
+        .catch(error=>console.log(error))
     }
     useEffect(() => {
         axios.get(getProductsLink)
@@ -40,7 +47,7 @@ function ProductList(props) {
 
                                 </div>
                             </Link>
-                            <button onClick = {()=> handleAddToCart(product.productid)}className="btn btn-primary addToCartButton">Add to Cart</button>
+                            <button onClick={() => handleAddToCart(product.productid)} className="btn btn-primary addToCartButton">Add to Cart</button>
                         </div>
                     ))
                 ) : (

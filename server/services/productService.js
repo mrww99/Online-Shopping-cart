@@ -29,7 +29,8 @@ class ProductService {
 
                     }
                 }
-            });
+            })
+            pool.end()
         } catch (error) {
             console.log(error)
         }
@@ -155,6 +156,7 @@ class ProductService {
                     }
                 }
             })
+            pool.end()
         } catch (error) {
             console.log(error)
         }
@@ -174,30 +176,11 @@ class ProductService {
                     }
                 }
             })
+            pool.end()
         } catch (error) {
             console.log(error)
         }
     }
-    // async findProduct(req, res) {
-    //     try {
-    //         const productId = req.params.productId;
-    //         const pool = new Pool(connectionCredits)
-    //         pool.query('SELECT * FROM "product" WHERE productid = $1', [productId], (error, result) => {
-    //             if (error) {
-    //                 res.status(500).send(error)
-    //             } else {
-    //                 if (res.rowCount === 0) {
-    //                     res.status(404).send({ error: 'User not found' })
-    //                 } else {
-    //                     res.status(200).json(result.rows[0])
-    //                 }
-    //             }
-    //         })
-    //     } catch (error) {
-    //         console.log(error)
-    //     }
-    // }
-
     async deleteProduct(req, res) {
         try {
             const productId = req.params.productId;
