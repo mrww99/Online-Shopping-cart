@@ -1,4 +1,5 @@
 const { Pool, Client } = require('pg');
+const pgp = require('pg-promise');
 
 const connectionCredits = {
     user: 'postgres',
@@ -7,7 +8,23 @@ const connectionCredits = {
     password: '1111',
     port: 5432
 }
+
 class ProductService {
+    async getOrderProducts(req, res) {
+        const pool = new Pool(connectionCredits)
+        const productIds = req.params.idSet
+        const idSet = productIds.split(',').map(id => parseInt(id, 10));
+        const query = `SELECT * FROM "product" WHERE productid IN (${idSet.join(',')})`;
+        try {
+            const result = await pool.query(query);
+            res.json(result.rows);
+        } catch (err) {
+            console.log(err)
+            res.status(500).json({ error: err.message });
+        } finally {
+            pool.end();
+        }
+    }
     async fetchProducts(req, res) {
         const userId = req.params.storeId
         let searchQuery

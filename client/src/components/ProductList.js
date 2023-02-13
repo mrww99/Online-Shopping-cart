@@ -15,12 +15,16 @@ function ProductList(props) {
     } else {
         getProductsLink = `http://localhost:5000/api/products/no`
     }
-    const handleAddToCart = (id) => {
-        axios.get(`http://localhost:5000/api/getOrders/${cookie}`)
-        .then(res=>{
-            console.log(res.data[0])
+    const handleAddToCart = async () => {
+        axios.get(`http://localhost:5000/api/getOrders/${cookie}`, {
+            params: {
+                status: 'unpayed'
+            }
         })
-        .catch(error=>console.log(error))
+            .then(res => {
+                console.log(res.data[0])
+            })
+            .catch(error => console.log(error))
     }
     useEffect(() => {
         axios.get(getProductsLink)

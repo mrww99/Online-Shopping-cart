@@ -16,6 +16,7 @@ router.post('/addNewCard/:userId', userService.addNewCard)              //ok
 router.get('/cardList/:userId', userService.getCardList)                //ok
 router.post('/deleteCard/:cardId', userService.deleteCard)              //ok
 //product service routers
+router.get('/fetchOrderItems/:idSet', productService.getOrderProducts)           //ok
 router.get('/products/:storeId',productService.fetchProducts)           //ok
 router.get('/findProduct/:productId', productService.findProduct)       //ok
 router.post('/addProduct/:storeId', productService.addProduct)          

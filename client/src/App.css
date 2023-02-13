@@ -59,10 +59,38 @@ body {
     width: 18vw;
 }
 
+td, th{
+    text-align: center !important;
+}
+.gggg{
+    width: 35%;
+    text-align: left !important;
+}
 .buttonBlock {
     margin-bottom: auto;
 }
-
+.checkoutCard{
+    width: 70vw;
+}
+.checkoutredblub {
+    background-color: red;
+    min-width: 1.5vw;
+    display: flex;
+    color: white !important;
+    min-height: -moz-fit-content;
+    min-height: fit-content;
+    border-radius: 34%;
+    justify-content: center;
+    align-items: center;
+}
+.plusminusbtn{
+    min-width: 2.5vw;
+    width: 2.5vw;
+}
+.safsafq{
+    align-items: center !important;
+    gap: 0.5vw;
+}
 .addButton {
     min-width: 23vw;
     background-color: white !important;

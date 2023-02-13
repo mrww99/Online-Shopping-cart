@@ -46,16 +46,43 @@ function AccountInfo(props) {
             .catch(error => console.log(error));
     }, [cookie]);
     useEffect(() => {
-        axios.get(`http://localhost:5000/api/getOrder/${cookie}`)
+        axios.get(`http://localhost:5000/api/getOrders/${cookie}`, {
+            params: {
+                status: 'payed'
+            }
+        })
             .then(res => {
                 setOrders(res.data);
             })
-            .catch(error => '');
+            .catch(error => console.log(error));
     }, [cookie]);
     return (
         <>
             <span className='fs-2'>My Account</span>
             <div className='d-flex flex-column myAccountBlock'>
+                <div className='mt-4'>
+                    <span className='fs-3'>My Orders</span>
+                    <div className='infoRow'>
+                        {orders.length !== 0 ? (
+                            orders.map((order, index) => (
+                                <div key={index} className="card infoCard m-1">
+                                    <div className="card-body cardBody">
+                                        <div className='d-flex flex-column'>
+                                            <h5 className="card-title">{order.addrestitle}</h5>
+                                            <p className='card-text fs-7 text-secondary'>Street: {order.street}</p>
+                                            <p className='card-text fs-7 text-secondary'>Postal Code: {order.postalcode}</p>
+                                            <p className='card-text fs-7 text-secondary'>Province: {order.province}</p>
+                                            <p className='card-text fs-7 text-secondary'>City: {order.city}</p>
+                                            <button className="btn btn-danger mt-3">Delete</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            ))
+                        ) : (
+                            <p className='my-3 mx-2 fs-5 text-muted'>No orders found</p>
+                        )}
+                    </div>
+                </div>
                 <div className='mt-4'>
                     <div className='d-flex flex-row justify-content-between accountInfoButton'>
                         <span className='fs-3'>My Addresses</span>
@@ -78,7 +105,7 @@ function AccountInfo(props) {
                                 </div>
                             ))
                         ) : (
-                            <p>No addresses found</p>
+                            <p className='my-3 mx-2 fs-5 text-muted'>No addresses found</p>
                         )
                         }
                     </div>
@@ -105,33 +132,9 @@ function AccountInfo(props) {
                                 </div>
                             ))
                         ) : (
-                            <p>No cards found</p>
+                            <p className='my-3 mx-2 fs-5 text-muted'>No cards found</p>
                         )
                         }
-                    </div>
-                </div>
-                <div className='mt-4'>
-                    <span className='fs-3'>My Orders</span>
-                    <div className='infoRow'>
-                        {orders.length !== 0 ? (
-                            orders.map((order, index) => (
-                                <div key={index} className="card infoCard m-1">
-                                    <div className="card-body cardBody">
-                                        <div className='d-flex flex-column'>
-                                            <h5 className="card-title">{order.addrestitle}</h5>
-                                            <p className='card-text fs-7 text-secondary'>Street: {order.street}</p>
-                                            <p className='card-text fs-7 text-secondary'>Postal Code: {order.postalcode}</p>
-                                            <p className='card-text fs-7 text-secondary'>Province: {order.province}</p>
-                                            <p className='card-text fs-7 text-secondary'>City: {order.city}</p>
-                                            <button className="btn btn-danger mt-3">Delete</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            ))
-                        ) : (
-
-                            <p>No orders found</p>
-                        )}
                     </div>
                 </div>
             </div>

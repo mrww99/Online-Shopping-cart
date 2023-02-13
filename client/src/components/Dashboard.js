@@ -14,6 +14,18 @@ import StorePage from './StorePage';
 function Dashboard(props) {
     const userId = props.userId
     const [user, setUser] = useState()
+    const [cart, setCart] = useState({})
+    useEffect(() => {
+        axios.get(`http://localhost:5000/api/getOrders/${userId}`, {
+            params: {
+                status: 'unpayed'
+            }
+        })
+            .then(res => {
+                setCart(res.data);
+            })
+            .catch(error => console.log(error));
+    }, [userId]);
     useEffect(() => {
         axios.get(`http://localhost:5000/api/getUser/${userId}`)
             .then(res => {
@@ -23,14 +35,14 @@ function Dashboard(props) {
     }, [userId])
     if (!user) {
         return null
-    }else{
-        
+    } else {
+
     }
     return (
         <>
             <div className='d-flex flex-row'>
                 <div className='navbar'>
-                    <Navbar user={user} />
+                    <Navbar user={user} cart = {cart}/>
                 </div>
                 <div className='py-3'>
                     <Routes>
@@ -39,9 +51,9 @@ function Dashboard(props) {
                         <Route path='/listOfStores' element={<StoreList />} />
                         <Route path='/myStore' element={<MyStore />} />
                         <Route path='/myAccount' element={<MyAccount />} />
-                        <Route path='/checkout' element={<Checkout />} />
-                        <Route path='/productPage/:id' element={<ProductPage/>}/>
-                        <Route path='/storePage/:id' element={<StorePage/>}/>
+                        <Route path='/checkout' element={<Checkout cart={cart}/>} />
+                        <Route path='/productPage/:id' element={<ProductPage />} />
+                        <Route path='/storePage/:id' element={<StorePage />} />
                     </Routes>
                 </div>
             </div>

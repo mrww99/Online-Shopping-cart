@@ -4,6 +4,7 @@ import { Link, useLocation } from 'react-router-dom';
 function Navbar(props) {
     const location = useLocation();
     const userName = props.user.name
+    const cart = props.cart.length
     return (
         <div className='navbarblock'>
             <div className="d-flex flex-column p-3 ">
@@ -32,8 +33,8 @@ function Navbar(props) {
                         </Link>
                     </li>
                     <li className='mt-3'>
-                        <Link className={`nav-link link ${location.pathname === '/checkout' ? 'active' : ''}`} to='/checkout'>
-                            Go to Checkout
+                        <Link className={`d-flex justify-content-between nav-link link ${location.pathname === '/checkout' ? 'active' : ''}`} to='/checkout'>
+                            Go to Checkout {cart !== 0 ? (<div className='checkoutredblub'><p>{cart}</p></div>) : ('')}
                         </Link>
                     </li>
                 </ul>
