@@ -8,6 +8,33 @@ const connectionCredits = {
 }
 const pool = new Pool(connectionCredits)
 class OrderService {
+    async deleteFromCart(req, res) {
+        const client = await pool.connect()
+        console.log(req.body)
+    }
+    async changeQuantInCart(req, res) {
+        const client = await pool.connect()
+        const { action, item } = req.body.params
+        console.log(item)
+        const itemId = item.orderitemid;
+        console.log(itemId)
+        let query = ''
+        if (action === 1) {
+            query = `UPDATE public.orderitem SET quantity = quantity - 1 WHERE orderitemid = ${itemId}`
+        } else if (action === 2) {
+            query = `UPDATE public.orderitem SET quantity = quantity + 1 WHERE orderitemid = ${itemId}`;
+        } else {
+            res.status(500).json('Forbidden action')
+        }
+        try {
+            await client.query(query)
+            res.status(200).json("Quantity updated successfully")
+        } catch (error) {
+            res.status(500).json(error)
+        }finally{
+            client.release()
+        }
+    }
     async getOrders(req, res) {
         const client = await pool.connect();
         try {
@@ -24,38 +51,17 @@ class OrderService {
             let fetchedOrders
             if (status === 'unpayed') {
                 fetchedOrders = (await client.query(fetchQuery)).rows[0]
-                if(fetchedOrders){
+                if (fetchedOrders) {
                     const orderid = fetchedOrders.orderid
                     const fetchItemsQuery = `SELECT * FROM orderitem WHERE order_orderid = ${orderid}`
                     const orderItems = await client.query(fetchItemsQuery)
                     res.status(200).json(orderItems.rows)
-                }else{
-                    res.status(404).json({response:'No unpayed orders found'})
+                } else {
+                    res.status(404).json({ response: 'No unpayed orders found' })
                 }
             } else {
                 fetchedOrders = (await client.query(fetchQuery)).rows
             }
-
-            // fetchQuery = `SELECT * FROM "order" WHERE user_userid = ${userId} AND paymentstate = false`;
-            // const unpayedOrder = await client.query(fetchQuery)
-            // if (unpayedOrder.rows.length === 0) {
-            //     console.log('No orders yet')
-            // }
-            // if (status === "payed") {
-            //     fetchQuery = `SELECT * FROM order WHERE paymentstate = true AND user_userid = ${userId}`;
-            // } else if (status === "unpayed") {
-            //     fetchQuery = `SELECT * FROM order WHERE paymentstate = false AND user_userid = ${userId}`;
-            // } else {
-            //     fetchQuery = `SELECT * FROM order WHERE user_userid = ${userId}`;
-            // }
-            // const result = client.query(fetchQuery)
-            // const orders = result.rows;
-            // console.log(orders)
-            // // if (orders.length === 0) {
-            // //     return res.status(204).send();
-            // // } else {
-            // //     return res.status(200).json(orders);
-            // // }
         } catch (error) {
             console.log(error)
             return res.status(500).json({ error: "Error fetching orders" })

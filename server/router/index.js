@@ -33,7 +33,9 @@ router.post('/createStore/:userId', storeService.createStore)
 router.get('/getOrder/:userId',storeService.getOrder)                   //not relevant
 router.get('/payment/:paymentInfo', storeService.addPaymentInfo)        //not relevant
 router.get('/deleteOrder/:orderId', storeService.deleteOrder)           //not relevant
-router.get('/getOrders/:userId', orderService.getOrders)
+router.get('/getOrders/:userId', orderService.getOrders)                //ok
+router.post('/changeQuantInCart', orderService.changeQuantInCart)
+router.post('/deleteFromCart', orderService.deleteFromCart)
 //TODO
 //fetch payed orders to myAccount                                                        (1)
 //fetch unpayed order(can have only one)                                                 (2)
