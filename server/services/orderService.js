@@ -16,13 +16,12 @@ class OrderService {
         const client = await pool.connect()
         const { action, item } = req.body.params
         console.log(item)
-        const itemId = item.orderitemid;
-        console.log(itemId)
         let query = ''
         if (action === 1) {
-            query = `UPDATE public.orderitem SET quantity = quantity - 1 WHERE orderitemid = ${itemId}`
+            query = `UPDATE public.orderitem SET quantity = quantity - 1 WHERE orderitemid = ${item} ORDER BY orderitemid`
+            console.log(query)
         } else if (action === 2) {
-            query = `UPDATE public.orderitem SET quantity = quantity + 1 WHERE orderitemid = ${itemId}`;
+            query = `UPDATE public.orderitem SET quantity = quantity + 1 WHERE orderitemid = ${item} ORDER BY orderitemid`;
         } else {
             res.status(500).json('Forbidden action')
         }

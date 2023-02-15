@@ -84,8 +84,8 @@ td, th{
     align-items: center;
 }
 .plusminusbtn{
-    min-width: 2.5vw;
-    width: 2.5vw;
+    min-width: 1.5vw;
+    height: 5vh !important;
 }
 .safsafq{
     align-items: center !important;
