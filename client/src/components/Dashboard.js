@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import "bootstrap/dist/css/bootstrap.min.css"
 import Navbar from './Navbar';
 import { Routes, Route } from 'react-router-dom'
-import { Redirect } from 'react-router';
 import axios from 'axios';
 import ProductList from './ProductList';
 import StoreList from './StoreList';
@@ -42,7 +41,7 @@ function Dashboard(props) {
         <>
             <div className='d-flex flex-row'>
                 <div className='navbar'>
-                    <Navbar user={user} cart = {cart}/>
+                    <Navbar user={user} cart = {cart} />
                 </div>
                 <div className='py-3'>
                     <Routes>
@@ -51,7 +50,7 @@ function Dashboard(props) {
                         <Route path='/listOfStores' element={<StoreList />} />
                         <Route path='/myStore' element={<MyStore />} />
                         <Route path='/myAccount' element={<MyAccount />} />
-                        <Route path='/checkout' element={<Checkout cart={cart}/>} />
+                        <Route path='/checkout' element={<Checkout cart={[cart,setCart]}/>} />
                         <Route path='/productPage/:id' element={<ProductPage />} />
                         <Route path='/storePage/:id' element={<StorePage />} />
                     </Routes>

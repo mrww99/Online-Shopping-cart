@@ -83,13 +83,20 @@ td, th{
     justify-content: center;
     align-items: center;
 }
-.plusminusbtn{
-    min-width: 1.5vw;
-    height: 5vh !important;
+
+.quantdiv{
+    min-width: 1rem;
+    margin: 0 0.5rem;
 }
-.safsafq{
-    align-items: center !important;
-    gap: 0.5vw;
+.plusminusbtn{
+    min-width: 1vw;
+    width: 1vw;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+.sho{
+    display: flex;
+    width: 5vw;
 }
 .addButton {
     min-width: 23vw;

@@ -6,31 +6,35 @@ const connectionCredits = {
     password: '1111',
     port: 5432
 }
+async function fetchOrderitems(id) {
+    const client = await pool.connect()
+    const fetchQuery = `SELECT * FROM orderitem WHERE order_orderid = ${id} ORDER BY orderitemid`;
+    return await client.query(fetchQuery)
+}
 const pool = new Pool(connectionCredits)
 class OrderService {
+
     async deleteFromCart(req, res) {
         const client = await pool.connect()
-        console.log(req.body)
     }
     async changeQuantInCart(req, res) {
         const client = await pool.connect()
         const { action, item } = req.body.params
-        console.log(item)
         let query = ''
         if (action === 1) {
-            query = `UPDATE public.orderitem SET quantity = quantity - 1 WHERE orderitemid = ${item} ORDER BY orderitemid`
-            console.log(query)
+            query = `UPDATE public.orderitem SET quantity = quantity - 1 WHERE orderitemid = ${item}`
         } else if (action === 2) {
-            query = `UPDATE public.orderitem SET quantity = quantity + 1 WHERE orderitemid = ${item} ORDER BY orderitemid`;
+            query = `UPDATE public.orderitem SET quantity = quantity + 1 WHERE orderitemid = ${item}`;
         } else {
             res.status(500).json('Forbidden action')
         }
         try {
             await client.query(query)
-            res.status(200).json("Quantity updated successfully")
+            const newArray = (await fetchOrderitems(item)).rows
+            res.status(200).json(newArray)
         } catch (error) {
             res.status(500).json(error)
-        }finally{
+        } finally {
             client.release()
         }
     }
@@ -52,7 +56,7 @@ class OrderService {
                 fetchedOrders = (await client.query(fetchQuery)).rows[0]
                 if (fetchedOrders) {
                     const orderid = fetchedOrders.orderid
-                    const fetchItemsQuery = `SELECT * FROM orderitem WHERE order_orderid = ${orderid}`
+                    const fetchItemsQuery = `SELECT * FROM orderitem WHERE order_orderid = ${orderid} ORDER BY orderitemid`
                     const orderItems = await client.query(fetchItemsQuery)
                     res.status(200).json(orderItems.rows)
                 } else {
@@ -67,6 +71,7 @@ class OrderService {
         }
         client.release()
     }
+
 
 }
 module.exports = new OrderService();
